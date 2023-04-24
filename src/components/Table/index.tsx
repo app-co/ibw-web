@@ -21,6 +21,7 @@ export function Table({ item }: Props) {
           <th>Status</th>
           <th>Categoria A</th>
           <th>Categoria B</th>
+          <th>Photo</th>
         </tr>
 
         {item.map((h) => (
@@ -35,6 +36,9 @@ export function Table({ item }: Props) {
             <td>{h?.status}</td>
             <td>{h?.category[0]?.type}</td>
             <td>{h?.category[1]?.type}</td>
+            <td>
+              <a href={'https://www.google.com'}>{h.photo}</a>
+            </td>
           </tr>
         ))}
       </S.table>

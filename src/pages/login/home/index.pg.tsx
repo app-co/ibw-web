@@ -6,8 +6,12 @@ import { xlsx } from '@/utils/xlsx'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { fire } from '@/config/firebase'
 import { Table } from '@/components/Table'
+import { useAuth } from '@/context/AuthContext'
+import { Router, useRouter } from 'next/router'
 
 export default function Home() {
+  const route = useRouter()
+  const { isAuth } = useAuth()
   const [response, setResponse] = React.useState<IUserInc[]>([])
 
   React.useEffect(() => {
@@ -24,17 +28,41 @@ export default function Home() {
     })
   }, [])
 
-  console.log(response)
+  const xls = React.useMemo(() => {
+    return response.map((h) => {
+      const a = h.category ? h.category[0]?.type : ''
+      const b = h.category ? h.category[1]?.type : ''
+
+      return {
+        NOME: h.name,
+        'E-MAIL': h.email,
+        SEXO: h.sexo,
+        'EXP EM TOW IN': h.expTow,
+        'EXP EM REMADA': h.expTow,
+        'DATA DE INSCRIÇÃO': h.created_at,
+        STATUS: h.status,
+        'CAT. A': a,
+        'CAT. B': b,
+      }
+    })
+  }, [response])
+  console.log(xls)
 
   const handleGenerateXlsx = React.useCallback(async () => {
-    xlsx(response)
-  }, [response])
+    xlsx(xls)
+  }, [xls])
+
+  React.useEffect(() => {
+    if (!isAuth) {
+      route.push('/login')
+    }
+  }, [isAuth, route])
 
   return (
     <S.container>
       <S.head>
-        <h1>heol</h1>
-        <S.upload onClick={handleGenerateXlsx}>Gerar execel</S.upload>
+        <h1>IBW</h1>
+        <S.upload onClick={handleGenerateXlsx}>Baixar lista</S.upload>
       </S.head>
 
       <S.box>

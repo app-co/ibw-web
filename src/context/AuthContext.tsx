@@ -34,9 +34,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         .catch((err: any) => {
           const { code } = err
           if (code === 'auth/user-not-found') {
+            setIsAuth(false)
             return alert('Usuário não encontrado')
           }
           if (code === 'auth/wrong-password') {
+            setIsAuth(false)
+
             return alert('Senha inconrreta')
           }
           return alert('Usuário nao encontrado')

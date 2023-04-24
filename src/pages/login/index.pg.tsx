@@ -16,13 +16,17 @@ export default function Login() {
   const [senha, setSenha] = React.useState('')
 
   const handleSubmit = React.useCallback(async () => {
-    signIn({
-      email,
-      password: senha,
-    }).then(() => {
-      router.push('/login/home')
-    })
-  }, [email, router, senha, signIn])
+    try {
+      await signIn({
+        email,
+        password: senha,
+      })
+
+      if (isAuth) {
+        router.push('/login/home')
+      }
+    } catch (err) {}
+  }, [email, isAuth, router, senha, signIn])
 
   return (
     <S.Container>
