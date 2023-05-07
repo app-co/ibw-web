@@ -18,7 +18,7 @@ export default function Login() {
       })
 
       if (isAuth) {
-        router.push('/login/home')
+        router.push('/home')
       }
     } catch (err) {}
   }, [email, isAuth, router, senha, signIn])

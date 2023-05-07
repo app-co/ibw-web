@@ -28,6 +28,8 @@ export default function Home() {
     })
   }, [])
 
+  console.log('resp', response[0])
+
   const xls = React.useMemo(() => {
     return response.map((h) => {
       const a = h.category ? h.category[0]?.type : ''

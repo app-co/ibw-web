@@ -5,6 +5,7 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import Link from 'next/link'
 import Image from 'next/image'
 import logo from '../assets/ico.png'
+import Login from './login'
 
 export default function Home() {
   const [data, setData] = React.useState<IUserInc[]>([])
@@ -18,8 +19,6 @@ export default function Home() {
     })
   }, [colection])
 
-  console.log(data)
-
   return (
     <div
       style={{
@@ -27,11 +26,10 @@ export default function Home() {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        height: '100vh',
       }}
     >
-      <Link href={'/login'}>
-        <Image src={logo} alt="logo" />
-      </Link>
+      <Login />
     </div>
   )
 }

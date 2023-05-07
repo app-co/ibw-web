@@ -10,9 +10,6 @@ export function Table({ item }: Props) {
   const rs = item.map((h) => {
     const ct = h.category ? h.category : []
 
-    console.log(ct)
-
-    console.log(ct)
     return {
       ...h,
       category: ct,
@@ -40,7 +37,7 @@ export function Table({ item }: Props) {
             <td>{h?.name}</td>
             <td>{h?.email}</td>
             <td>{h?.sexo}</td>
-            <td>{h?.brithday}</td>
+            <td>{h?.birthday}</td>
             <td>{h?.expTow}</td>
             <td>{h?.expRemada}</td>
             <td>{h?.created_at}</td>
