@@ -30,7 +30,7 @@ export function CandidatoComp({ item, reprov, pres }: Props) {
 
       <S.bx>
         <S.title>Data de nascimento: </S.title>
-        <S.sub>{item?.brithday}</S.sub>
+        <S.sub>{item?.birthday}</S.sub>
       </S.bx>
 
       <S.bx>
