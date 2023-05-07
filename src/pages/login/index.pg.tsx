@@ -1,10 +1,5 @@
-import { CandidatoComp } from '@/components/CandidatoComp'
-import { Table } from '@/components/Table'
-import { fire } from '@/config/firebase'
 import { useAuth } from '@/context/AuthContext'
 
-import { redirect } from 'next/dist/server/api-utils'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import * as S from './styles'

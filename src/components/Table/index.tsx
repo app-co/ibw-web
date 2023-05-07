@@ -7,6 +7,17 @@ interface Props {
 }
 
 export function Table({ item }: Props) {
+  const rs = item.map((h) => {
+    const ct = h.category ? h.category : []
+
+    console.log(ct)
+
+    console.log(ct)
+    return {
+      ...h,
+      category: ct,
+    }
+  })
   return (
     <S.Container>
       <S.table border={1} align="right">
@@ -24,7 +35,7 @@ export function Table({ item }: Props) {
           <th>Photo</th>
         </tr>
 
-        {item.map((h) => (
+        {rs.map((h) => (
           <tr key={h.id}>
             <td>{h?.name}</td>
             <td>{h?.email}</td>
@@ -34,8 +45,8 @@ export function Table({ item }: Props) {
             <td>{h?.expRemada}</td>
             <td>{h?.created_at}</td>
             <td>{h?.status}</td>
-            <td>{h?.category[0]?.type}</td>
-            <td>{h?.category[1]?.type}</td>
+            {/* <td>{h?.category[0].type?}</td>
+            <td>{h?.category[1].type?}</td> */}
             <td>
               <a href={'https://www.google.com'}>{h.photo}</a>
             </td>

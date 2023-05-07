@@ -7,7 +7,7 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import { fire } from '@/config/firebase'
 import { Table } from '@/components/Table'
 import { useAuth } from '@/context/AuthContext'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const route = useRouter()
