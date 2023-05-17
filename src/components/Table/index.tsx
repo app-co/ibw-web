@@ -1,6 +1,7 @@
 import { IUserInc } from '@/dtos'
 import React from 'react'
 import * as S from './styles'
+import { format } from 'date-fns'
 
 interface Props {
   item: IUserInc[]
@@ -8,13 +9,30 @@ interface Props {
 
 export function Table({ item }: Props) {
   const rs = item.map((h) => {
-    const ct = h.category ? h.category : []
+    const ctSurf = h.category.find(
+      (p) => p.type === 'TOW IN LAJE DO SHOCK - SURFISTA',
+    )
+
+    const ctJet = h.category.find(
+      (p) => p.type === 'TOW IN LAJE DO SHOCK - PILOTO',
+    )
+
+    const ctRem = h.category.find(
+      (p) => p.type === 'REMADA PRAIA DE ITACOATIARA - SURFISTA',
+    )
+
+    const cat = {
+      surf: ctSurf || { exp: '', type: '' },
+      jet: ctJet || { exp: '', type: '' },
+      remada: ctRem || { exp: '', type: '' },
+    }
 
     return {
       ...h,
-      category: ct,
+      category: cat,
     }
   })
+
   return (
     <S.Container>
       <S.table border={1} align="right">
@@ -23,12 +41,15 @@ export function Table({ item }: Props) {
           <th>E-mail</th>
           <th>Sexo</th>
           <th>Data de nascimento</th>
-          <th>Exp em Tow In</th>
-          <th>Exp em Remada</th>
+          <th>Exp em Tow In Surf</th>
+          <th>Exp em Tow In Piloto</th>
+          <th>Categoria Piloto</th>
+          <th>Categoria Surfista</th>
+          <th>Categoria Remada</th>
+          <th>Categoria Bodyboarding</th>
+          <th>Categoria Cinegrafista</th>
           <th>Data de inscrição</th>
           <th>Status</th>
-          <th>Categoria A</th>
-          <th>Categoria B</th>
           <th>Photo</th>
         </tr>
 
@@ -38,14 +59,17 @@ export function Table({ item }: Props) {
             <td>{h?.email}</td>
             <td>{h?.sexo}</td>
             <td>{h?.birthday}</td>
-            <td>{h?.expTow}</td>
-            <td>{h?.expRemada}</td>
-            <td>{h?.created_at}</td>
+            <td>{h.category.surf.exp}</td>
+            <td>{h.category.jet.exp}</td>
+            <td>{h.category.jet.type}</td>
+            <td>{h.category.surf.type}</td>
+            <td>{h.category.remada.type}</td>
+            <td>{h.bodyboarding}</td>
+            <td>{h.cinegrafista}</td>
+            <td>{format(h?.created_at, 'dd/MM/yyyy')}</td>
             <td>{h?.status}</td>
-            {/* <td>{h?.category[0].type?}</td>
-            <td>{h?.category[1].type?}</td> */}
             <td>
-              <a href={'https://www.google.com'}>{h.photo}</a>
+              <a href={h.photo}>baixar imagem</a>
             </td>
           </tr>
         ))}

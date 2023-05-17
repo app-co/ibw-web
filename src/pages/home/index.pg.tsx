@@ -8,6 +8,7 @@ import { fire } from '@/config/firebase'
 import { Table } from '@/components/Table'
 import { useAuth } from '@/context/AuthContext'
 import { useRouter } from 'next/router'
+import { format } from 'date-fns'
 
 export default function Home() {
   const route = useRouter()
@@ -32,19 +33,39 @@ export default function Home() {
 
   const xls = React.useMemo(() => {
     return response.map((h) => {
-      const a = h.category ? h.category[0]?.type : ''
-      const b = h.category ? h.category[1]?.type : ''
+      const ctSurf = h.category.find(
+        (p) => p.type === 'TOW IN LAJE DO SHOCK - SURFISTA',
+      )
+
+      const ctJet = h.category.find(
+        (p) => p.type === 'TOW IN LAJE DO SHOCK - PILOTO',
+      )
+
+      const ctRem = h.category.find(
+        (p) => p.type === 'REMADA PRAIA DE ITACOATIARA - SURFISTA',
+      )
+
+      const cat = {
+        surf: ctSurf || { exp: '', type: '' },
+        jet: ctJet || { exp: '', type: '' },
+        remada: ctRem || { exp: '', type: '' },
+      }
 
       return {
-        NOME: h.name,
-        'E-MAIL': h.email,
-        SEXO: h.sexo,
-        'EXP EM TOW IN': h.expTow,
-        'EXP EM REMADA': h.expTow,
-        'DATA DE INSCRIÇÃO': h.created_at,
-        STATUS: h.status,
-        'CAT. A': a,
-        'CAT. B': b,
+        Candidato: h.name,
+        'E-mail': h.email,
+        Sexo: h.sexo,
+        'Data de nascimento': h.birthday,
+        'Exp em Tow In Surf': cat.surf.exp,
+        'Exp em Tow In Piloto': cat.jet.exp,
+        'Categoria Piloto': cat.jet.type,
+        'Categoria Surfista': cat.surf.type,
+        'Categoria Remada': cat.remada.type,
+        'Categoria Bodyboarding': h.bodyboarding,
+        'Categoria Cinegrafista': h.cinegrafista,
+        'Data de inscrição': format(h.created_at, 'dd/MM/yyyy'),
+        Status: h.status,
+        Photo: h.photo,
       }
     })
   }, [response])

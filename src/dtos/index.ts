@@ -24,20 +24,22 @@ export interface ILive {
 }
 
 export interface IUserInc {
-  id?: string
-  name?: string
-  cpf?: string
-  email?: string
-  birthday?: string
-  sexo?: 'M' | 'F'
-  category?: { type: string }[]
-  expTow?: string
-  expRemada?: string
-  photo?: string
-  created_at: string
+  id: string
+  name: string
+  cpf: string
+  email: string
+  birthday: string
+  sexo: 'M' | 'F'
+  category: { type: string; exp: string }[]
+  expTow: string
+  expRemada: string
+  photo: string
+  created_at: number
   status: string
   user_id: string
+  token: string
+  localy: string
+  bodyboarding: string
+  cinegrafista: string
   event_id: string
-  country: string
-  insta: string
 }
